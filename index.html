@@ -30,6 +30,32 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+ <script>
+  // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+  const link = 'https://destrave-seus-ganhos.vercel.app/';
+
+  function setBackRedirect(url) {
+    let urlBackRedirect = url;
+    urlBackRedirect = urlBackRedirect =
+      urlBackRedirect.trim() +
+      (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+      document.location.search.replace('?', '').toString();
+
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+
+    window.addEventListener('popstate', () => {
+      console.log('onpopstate', urlBackRedirect);
+      setTimeout(() => {
+        location.href = urlBackRedirect;
+      }, 1);
+    });
+  }
+
+  setBackRedirect(link);
+</script>
 </head>
 <body>
 
@@ -224,6 +250,58 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
     </div>
   </section>
 
+  <!-- PROVAS SOCIAIS -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Quem já leu</span>
+        <h2>O que dizem quem já aplicou o método</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon">"</div>
+          <p class="testimonial-text">O que mais me chamou atenção foi a parte que explica por que a gente entra em platô. Eu treinava há meses fazendo sempre a mesma coisa e nunca tinha parado pra pensar nisso. A parte de RPE, TUT e progressão ficou bem fácil de entender. Já comecei a aplicar algumas mudanças no treino.</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-avatar">L</span>
+            <span class="testimonial-name">Lucas M.</span>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon">"</div>
+          <p class="testimonial-text">Eu já acompanho bastante conteúdo de musculação, mas mesmo assim aprendi algumas estratégias que nunca tinha usado, como controlar o tempo das repetições e aplicar as técnicas de intensidade da forma certa. A leitura é simples e bem organizada.</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-avatar">J</span>
+            <span class="testimonial-name">João P.</span>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon">"</div>
+          <p class="testimonial-text">Gostei porque o ebook não fica enrolando. Vai direto ao ponto e explica exatamente o que fazer quando você para de evoluir. O plano de treino de 4 semanas foi o que mais gostei. Dá vontade de colocar em prática na hora.</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-avatar">R</span>
+            <span class="testimonial-name">Rafael S.</span>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon">"</div>
+          <p class="testimonial-text">Achei muito legal que ele não fala só de treino. A parte sobre recuperação, alimentação e principalmente disciplina fez bastante sentido pra mim. Percebi que meu erro não era só dentro da academia. É um material bem completo.</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-avatar">M</span>
+            <span class="testimonial-name">Matheus A.</span>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote-icon">"</div>
+          <p class="testimonial-text">O que mais gostei foi que tudo parece aplicável. Não é aquele monte de teoria difícil. Você termina um capítulo e já sabe exatamente o que testar no treino seguinte. Pra quem sente que estagnou, vale muito a leitura.</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-avatar">G</span>
+            <span class="testimonial-name">Guilherme R.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PREÇO -->
   <section class="price-section">
     <div class="container">
@@ -327,24 +405,6 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <!-- PROVA SOCIAL -->
-  <section id="depoimentos">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow mono">Por Trás do Método</span>
-        <h2>Por que a Destrave Pro criou esse método</h2>
-      </div>
-      <div class="founder-testimonial reveal">
-        <div class="testimonial-quote-icon">"</div>
-        <p class="founder-testimonial-text">Fiquei cerca de um ano travado no treino sem conseguir subir carga em quase nenhum exercício. Tentei trocar de treino várias vezes, testei suplemento, e nada resolvia — porque o problema nunca foi isso. Foi quando parei pra estruturar uma progressão de carga de verdade, com critério, que o platô finalmente quebrou. O Destrave Seus Ganhos nasceu exatamente dessa experiência: virou o método que eu gostaria de ter encontrado um ano antes.</p>
-        <div class="founder-footer">
-          <span class="founder-avatar"><img src="images/logo-destrave-pro.png" alt="Destrave Pro"></span>
-          <div><span class="founder-name">Filipe Tartaglia</span><span class="founder-tag">Fundador da Destrave Pro</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq">
     <div class="container" style="max-width:760px;">
@@ -417,10 +477,6 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
     </div>
   </div>
 </footer>
-
-<div class="mobile-sticky">
-  <a href="https://pay.hotmart.com/Y102348799D?checkoutMode=10" target="_blank" rel="noopener" class="btn btn-primary">Quero Destravar Meus Ganhos</a>
-</div>
 
 <script src="js/main.js"></script>
 

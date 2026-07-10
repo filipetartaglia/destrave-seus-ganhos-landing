@@ -39,12 +39,23 @@
     });
   }
 
-  // header shrink on scroll (subtle)
+  // header hide on scroll down, show on scroll up
   const header = document.querySelector('header');
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 80;
+
   window.addEventListener('scroll', () => {
-    if(window.scrollY > 40){
-      header.style.borderBottomColor = 'var(--border-bright)';
-    } else {
-      header.style.borderBottomColor = 'var(--border)';
+    const currentScrollY = window.scrollY;
+
+    header.style.borderBottomColor = currentScrollY > 40 ? 'var(--border-bright)' : 'var(--border)';
+
+    if (currentScrollY <= scrollThreshold) {
+      header.classList.remove('header-hidden');
+    } else if (currentScrollY > lastScrollY) {
+      header.classList.add('header-hidden');
+    } else if (currentScrollY < lastScrollY) {
+      header.classList.remove('header-hidden');
     }
+
+    lastScrollY = currentScrollY;
   });
