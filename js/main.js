@@ -59,3 +59,16 @@
 
     lastScrollY = currentScrollY;
   });
+
+  // "Descobrir Como Funciona" -> rola até o VSL e inicia o vídeo
+  const descobrirBtn = document.getElementById('descobrir-btn');
+  const vslIframe = document.getElementById('vsl-iframe');
+  const vslSection = document.getElementById('vsl');
+
+  if (descobrirBtn && vslIframe && vslSection) {
+    descobrirBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      vslIframe.src = 'https://www.youtube.com/embed/oW7vzJii55k?rel=0&modestbranding=1&enablejsapi=1&autoplay=1';
+      vslSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
