@@ -31,13 +31,31 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-<script
-  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-subids
-  async
-  defer
-></script>
+ <script>
+  // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+  const link = 'https://destrave-seus-ganhos.vercel.app/';
 
+  function setBackRedirect(url) {
+    let urlBackRedirect = url;
+    urlBackRedirect = urlBackRedirect =
+      urlBackRedirect.trim() +
+      (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+      document.location.search.replace('?', '').toString();
+
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+
+    window.addEventListener('popstate', () => {
+      console.log('onpopstate', urlBackRedirect);
+      setTimeout(() => {
+        location.href = urlBackRedirect;
+      }, 1);
+    });
+  }
+
+  setBackRedirect(link);
+</script>
 </head>
 <body>
 
@@ -80,8 +98,8 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
     <div class="container">
       <div class="hero-content">
         <span class="eyebrow mono">Destrave Pro · Método 01</span>
-        <h1>Treina há meses e continua levantando <span class="accent-text">o mesmo peso?</span></h1>
-        <p class="lead">Descubra o método criado para tirar homens da estagnação muscular através de treino inteligente, progressão estratégica, alimentação e disciplina — não mais um ebook de treino.</p>
+        <h1>Você faz 4 séries de 10 há semanas, sempre com <span class="accent-text">o mesmo peso</span>, e chama isso de treino.</h1>
+        <p class="lead">Não é. É manutenção. Existe uma diferença técnica entre os dois — e ela é o motivo exato pelo qual você parou de crescer. Descubra qual é, hoje.</p>
         <div class="hero-ctas">
           <a href="https://pay.hotmart.com/Y102348799D?checkoutMode=10" target="_blank" rel="noopener" class="btn btn-primary">Quero Destravar Meus Ganhos</a>
           <a href="#metodo" class="btn btn-ghost">Descobrir Como Funciona</a>
@@ -108,7 +126,8 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
         <div class="id-card reveal"><span class="id-check">✓</span><p>Não consegue aumentar carga, mesmo treinando pesado.</p></div>
         <div class="id-card reveal"><span class="id-check">✓</span><p>Vive trocando de treino na esperança de "destravar".</p></div>
         <div class="id-card reveal"><span class="id-check">✓</span><p>Já tentou suplementos esperando que resolvessem o problema.</p></div>
-        <div class="id-card reveal" style="grid-column:1 / -1;"><span class="id-check">✓</span><p>Faz tudo "certo" — dieta, treino, descanso — e continua estagnado.</p></div>
+        <div class="id-card reveal"><span class="id-check">✓</span><p>Faz tudo "certo" — dieta, treino, descanso — e continua estagnado.</p></div>
+        <div class="id-card reveal"><span class="id-check">✓</span><p>Você aumenta o peso, mas sabe — no fundo — que não fez a última repetição até a falha de verdade.</p></div>
       </div>
     </div>
   </section>
@@ -177,15 +196,15 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
         </div>
         <div class="module-row">
           <span class="module-num">MÓDULO 02</span>
-          <div><h3>Progressão Inteligente</h3><p>O sistema de progressão de carga que substitui a tentativa e erro.</p></div>
+          <div><h3>Progressão Inteligente</h3><p>A diferença entre fazer 11 repetições em vez de 10, ou reduzir o descanso em 15 segundos — pequenas variáveis que, somadas, valem mais que adicionar peso na barra.</p></div>
         </div>
         <div class="module-row">
           <span class="module-num">MÓDULO 03</span>
-          <div><h3>Plano de Choque</h3><p>Um protocolo de 4 semanas desenhado para romper a adaptação atual.</p></div>
+          <div><h3>Plano de Choque</h3><p>Semana 1-4 prepara o músculo. Semana 5-8 é intensidade máxima com técnicas de choque. Depois vem uma semana inteira de Deload — reduzir carga de propósito. Ignorar essa parte é o erro nº1 de quem tenta sozinho.</p></div>
         </div>
         <div class="module-row">
           <span class="module-num">MÓDULO 04</span>
-          <div><h3>Nutrição Estratégica</h3><p>Alimentação alinhada ao novo estímulo, sem dietas genéricas.</p></div>
+          <div><h3>Nutrição Estratégica</h3><p>Não é sobre cortar carboidrato. É sobre saber que seu corpo só absorve 30-40g de proteína por refeição — o resto é desperdiçado. A distribuição importa mais que o total.</p></div>
         </div>
         <div class="module-row">
           <span class="module-num">MÓDULO 05</span>
@@ -297,6 +316,7 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
         </div>
         <p class="price-note">Pagamento único · Acesso imediato · Garantia incondicional</p>
         <a href="https://pay.hotmart.com/Y102348799D?checkoutMode=10" target="_blank" rel="noopener" class="btn btn-primary" style="padding:18px 36px;font-size:16px;">Quero Destravar Meus Ganhos</a>
+        <p class="price-future-note">Este é o preço de lançamento do método. Conforme o Destrave Pro evolui — com aulas em vídeo e a plataforma completa sendo lançadas em breve — o valor do acesso sobe. Quem entra agora garante esse preço para sempre, mesmo depois das próximas atualizações.</p>
       </div>
     </div>
   </section>
@@ -309,15 +329,12 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
         <h2>O que muda na sua forma de treinar</h2>
       </div>
       <div class="benefits-grid">
+        <div class="benefit-card reveal"><div class="ico">→</div><p>Saiba por que 80% das suas séries precisam estar em esforço quase máximo — e o que fazer com os outros 20%.</p></div>
+        <div class="benefit-card reveal"><div class="ico">→</div><p>Aplique o ritmo exato (3 segundos descendo, 1 de pausa, 2 subindo, 1 de contração) que transforma qualquer série em um novo estímulo pro músculo.</p></div>
         <div class="benefit-card reveal"><div class="ico">→</div><p>Descubra exatamente por que seu corpo parou de evoluir.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Aprenda a utilizar progressão de carga corretamente.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Domine o conceito de RPE no seu treino.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Entenda Tempo Sob Tensão e use a seu favor.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Saiba quando aplicar técnicas avançadas — e quando não.</p></div>
         <div class="benefit-card reveal"><div class="ico">→</div><p>Identifique exatamente quando fazer um Deload.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Construa um plano de evolução contínua, não pontual.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Treine com estratégia — não por tentativa e erro.</p></div>
-        <div class="benefit-card reveal"><div class="ico">→</div><p>Saia da dependência de suplementos como "solução".</p></div>
+        <div class="benefit-card reveal"><div class="ico">→</div><p>Saiba quando aplicar técnicas avançadas — e quando não.</p></div>
+        <div class="benefit-card reveal"><div class="ico">→</div><p>Aprenda a utilizar progressão de carga corretamente.</p></div>
       </div>
     </div>
   </section>
@@ -394,7 +411,7 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
       <div class="faq-list reveal">
         <div class="faq-item">
           <button class="faq-q">Serve para iniciantes? <span class="plus">+</span></button>
-          <div class="faq-a"><div class="faq-a-inner">Sim. O Módulo 1 foi desenhado para diagnosticar seu ponto de partida antes de aplicar qualquer progressão, então o método se ajusta ao seu nível atual.</div></div>
+          <div class="faq-a"><div class="faq-a-inner">O método funciona melhor para quem já treina há alguns meses e sente que parou de evoluir — platô só existe pra quem já vinha progredindo. Se você está começando agora, o foco inicial deve ser aprender o básico antes de aplicar as técnicas de quebra de platô.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">Funciona para naturais? <span class="plus">+</span></button>
@@ -424,6 +441,7 @@ src="https://www.facebook.com/tr?id=1399517858281650&ev=PageView&noscript=1"
   <section class="final-cta" id="oferta">
     <div class="container reveal">
       <span class="eyebrow mono center">Destrave Pro</span>
+      <p class="final-cta-lead">Daqui a 4 semanas, você vai abrir seu app de treino e ver: mais peso, mais repetição, ou menos descanso entre séries. Não importa qual dos três — qualquer um significa que o platô acabou.</p>
       <h2>Seu corpo não muda quando você espera. <span>Ele muda quando você aplica o método certo.</span></h2>
       <a href="https://pay.hotmart.com/Y102348799D?checkoutMode=10" target="_blank" rel="noopener" class="btn btn-primary" style="padding:18px 36px;font-size:16px;">Quero Destravar Meus Ganhos Agora</a>
     </div>
