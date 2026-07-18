@@ -72,3 +72,70 @@
       vslSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+
+  // ---------- Meta Pixel: tracking de eventos ----------
+  function trackPixel(eventName, params) {
+    if (typeof fbq === 'function') {
+      fbq('trackCustom', eventName, params || {});
+    }
+  }
+
+  // Clique nos CTAs de checkout (Hotmart)
+  document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      const location = btn.closest('section')?.id || btn.closest('div[class]')?.className.split(' ')[0] || `cta-${index}`;
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', { content_name: 'Destrave Seus Ganhos', cta_location: location });
+      }
+    });
+  });
+
+  // Clique no botão "Descobrir Como Funciona" (intenção de assistir VSL)
+  if (descobrirBtn) {
+    descobrirBtn.addEventListener('click', () => {
+      trackPixel('VSL_Click', { source: 'hero_button' });
+    });
+  }
+
+  // Play real do vídeo VSL via YouTube IFrame API
+  (function loadYouTubeAPI() {
+    if (!vslIframe) return;
+    let vslPlayTracked = false;
+
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = function () {
+      new YT.Player('vsl-iframe', {
+        events: {
+          onStateChange: function (event) {
+            if (event.data === YT.PlayerState.PLAYING && !vslPlayTracked) {
+              vslPlayTracked = true;
+              trackPixel('VSL_Play', { video: 'destrave-seus-ganhos' });
+            }
+          }
+        }
+      });
+    };
+  })();
+
+  // Profundidade de scroll (25% / 50% / 75% / 100%)
+  (function scrollDepthTracking() {
+    const milestones = [25, 50, 75, 100];
+    const reached = new Set();
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      const percent = Math.round((scrollTop / docHeight) * 100);
+
+      milestones.forEach((m) => {
+        if (percent >= m && !reached.has(m)) {
+          reached.add(m);
+          trackPixel('ScrollDepth', { percent: m });
+        }
+      });
+    });
+  })();
