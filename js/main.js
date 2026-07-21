@@ -39,6 +39,56 @@
     });
   }
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // gráfico do platô: linha vermelha se desenha ao entrar na tela
+  const plateauCard = document.getElementById('plateau-card');
+  const plateauPath = document.getElementById('plateau-draw-path');
+  if (plateauCard && plateauPath && !prefersReducedMotion) {
+    const plen = plateauPath.getTotalLength();
+    plateauPath.style.strokeDasharray = plen;
+    plateauPath.style.strokeDashoffset = plen;
+
+    const plateauObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          plateauPath.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1) .3s';
+          plateauPath.style.strokeDashoffset = 0;
+          plateauObserver.unobserve(plateauCard);
+        }
+      });
+    }, { threshold: 0.4 });
+    plateauObserver.observe(plateauCard);
+  }
+
+  // preço: contagem sobe até o valor final ao entrar na tela
+  const priceTarget = document.getElementById('price-count-target');
+  if (priceTarget && !prefersReducedMotion) {
+    const finalValue = parseInt(priceTarget.dataset.target, 10);
+    const priceObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const duration = 900;
+          const start = performance.now();
+          function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * finalValue);
+            priceTarget.textContent = 'R$' + current;
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              priceTarget.textContent = 'R$' + finalValue;
+            }
+          }
+          requestAnimationFrame(tick);
+          priceObserver.unobserve(priceTarget);
+        }
+      });
+    }, { threshold: 0.5 });
+    priceObserver.observe(priceTarget);
+  }
+
   // header hide on scroll down, show on scroll up
   const header = document.querySelector('header');
   let lastScrollY = window.scrollY;
@@ -68,8 +118,10 @@
   if (descobrirBtn && vslIframe && vslSection) {
     descobrirBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      vslIframe.src = 'https://www.youtube.com/embed/oW7vzJii55k?rel=0&modestbranding=1&enablejsapi=1&autoplay=1';
       vslSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.vslVimeoPlayer) {
+        window.vslVimeoPlayer.play();
+      }
     });
   }
 
@@ -97,27 +149,24 @@
     });
   }
 
-  // Play real do vídeo VSL via YouTube IFrame API
-  (function loadYouTubeAPI() {
+  // Play real do vídeo VSL via Vimeo Player API
+  (function loadVimeoAPI() {
     if (!vslIframe) return;
     let vslPlayTracked = false;
 
     const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady = function () {
-      new YT.Player('vsl-iframe', {
-        events: {
-          onStateChange: function (event) {
-            if (event.data === YT.PlayerState.PLAYING && !vslPlayTracked) {
-              vslPlayTracked = true;
-              trackPixel('VSL_Play', { video: 'destrave-seus-ganhos' });
-            }
-          }
+    tag.src = 'https://player.vimeo.com/api/player.js';
+    tag.onload = function () {
+      const player = new Vimeo.Player(vslIframe);
+      window.vslVimeoPlayer = player;
+      player.on('play', function () {
+        if (!vslPlayTracked) {
+          vslPlayTracked = true;
+          trackPixel('VSL_Play', { video: 'destrave-seus-ganhos' });
         }
       });
     };
+    document.head.appendChild(tag);
   })();
 
   // Profundidade de scroll (25% / 50% / 75% / 100%)
