@@ -119,9 +119,7 @@
     descobrirBtn.addEventListener('click', (e) => {
       e.preventDefault();
       vslSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (window.vslVimeoPlayer) {
-        window.vslVimeoPlayer.play();
-      }
+      // Autoplay prevented as per rules
     });
   }
 
@@ -145,7 +143,7 @@
   // Clique no botão "Descobrir Como Funciona" (intenção de assistir VSL)
   if (descobrirBtn) {
     descobrirBtn.addEventListener('click', () => {
-      trackPixel('VSL_Click', { source: 'hero_button' });
+      trackPixel('video_cta_click', { source: 'hero_button' });
     });
   }
 
