@@ -130,6 +130,32 @@
     }
   }
 
+  // ---------- Preservar UTMs no Checkout ----------
+  (function preserveUTMs() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmsToKeep = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    let utmString = '';
+    
+    utmsToKeep.forEach(param => {
+      if (urlParams.has(param)) {
+        utmString += `&${param}=${encodeURIComponent(urlParams.get(param))}`;
+      }
+    });
+
+    if (utmString !== '') {
+      document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(btn => {
+        let href = btn.getAttribute('href');
+        if (href) {
+          if (href.indexOf('?') !== -1) {
+            btn.setAttribute('href', href + utmString);
+          } else {
+            btn.setAttribute('href', href + '?' + utmString.substring(1));
+          }
+        }
+      });
+    }
+  })();
+
   // Clique nos CTAs de checkout (Hotmart)
   document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach((btn, index) => {
     btn.addEventListener('click', () => {
